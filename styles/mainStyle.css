@@ -1,0 +1,18 @@
+/* Estilos generales para el contenedor del juego */
+body {
+    background-color: #1a1a1a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden; /* Evita scrolls accidentales */
+    font-family: sans-serif;
+}
+
+canvas {
+    background-color: #2d4c1e; /* Un verde oscuro tipo pasto para empezar */
+    border: 5px solid #3e2723; /* Un borde café madera */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    image-rendering: pixelated; /* Si usas pixel art después, se verá nítido */
+}
