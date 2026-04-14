@@ -1,11 +1,12 @@
 export class Plant {
-    constructor(gridX, gridY, cellWidth, cellHeight, type, onCreateEntity) {
+    constructor(gridX, gridY, cellWidth, cellHeight, type, onCreateEntity, assets) {
         this.gridX = gridX; // Posición en la rejilla (ej: columna 2)
         this.gridY = gridY; // Posición en la rejilla (ej: fila 1)
         this.width = cellWidth * 0.8; // Un poco más pequeña que la celda
         this.height = cellHeight * 0.8;
         this.type = type; // 'sunflower' o 'peashooter'
         this.onCreateEntity = onCreateEntity; //Crear entidad para acciones
+        this.assets = assets;
 
         // Coordenadas de dibujo (centradas en la celda)
         this.x = (gridX * cellWidth) + (cellWidth / 2);
@@ -52,15 +53,25 @@ export class Plant {
     }
 
     render(ctx) {
-        ctx.fillStyle = this.type === 'sunflower' ? '#FFD700' : '#4CAF50';
-        ctx.beginPath();
-        // Dibujamos un círculo para representar la planta por ahora
-        ctx.arc(this.x, this.y, this.width / 2, 0, Math.PI * 2);
-        ctx.fill();
+        if (this.type === 'peashooter' && this.assets && this.assets.peashooter) {
+            // Dibujar la imagen del Peashooter
+            ctx.drawImage(
+                this.assets.peashooter,
+                this.x - this.width / 2,
+                this.y - this.height / 2,
+                this.width,
+                this.height
+            );
+        } else {
+            // Renderizado por defecto (círculo) para Sunflower o si no hay imagen
+            ctx.fillStyle = this.type === 'sunflower' ? '#FFD700' : '#4CAF50';
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.width / 2, 0, Math.PI * 2);
+            ctx.fill();
 
-        // Un pequeño borde para que se vea pro
-        ctx.strokeStyle = 'black';
-        ctx.lineWidth = 2;
-        ctx.stroke();
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
     }
-}
+}

@@ -3,7 +3,8 @@ import { Projectile } from "./projectile.js";
 import { Sun } from "./sun.js";
 
 export class EntityManager {
-    constructor() {
+    constructor(assets) {
+        this.assets = assets;
         this.plants = [];
         this.zombies = [];
         this.projectiles = []; // Nueva lista para guisantes
@@ -29,7 +30,8 @@ export class EntityManager {
         // Le pasamos la referencia a handleEntityCreation como un "callback"
         const newPlant = new Plant(
             gridX, gridY, cellWidth, cellHeight, type,
-            (t, d) => this.handleEntityCreation(t, d)
+            (t, d) => this.handleEntityCreation(t, d),
+            this.assets
         );
         this.plants.push(newPlant);
     }

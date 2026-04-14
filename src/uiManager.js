@@ -1,8 +1,9 @@
 export class UIManager {
-    constructor(width, height) {
+    constructor(width, height, assets) {
         this.width = width;
         this.height = height; // Altura de la barra (ej: 100px)
         this.selectedPlant = null; // Qué planta tenemos seleccionada
+        this.assets = assets;
 
         // El "Ancho de la sección de Soles" será nuestra nueva referencia X
         this.sunSectionWidth = 100;
@@ -44,6 +45,19 @@ export class UIManager {
             // Dibujar el slot (el botón)
             ctx.fillStyle = slot.color;
             ctx.fillRect(slot.x, slot.y, slot.w, slot.h);
+
+            // Si hay una imagen para esta planta, la dibujamos en el centro del slot
+            if (this.assets && this.assets[slot.id]) {
+                const img = this.assets[slot.id];
+                const padding = 5;
+                ctx.drawImage(
+                    img, 
+                    slot.x + padding, 
+                    slot.y + padding, 
+                    slot.w - padding * 2, 
+                    slot.h - padding * 2
+                );
+            }
 
             // Si está seleccionada, borde blanco
             if (this.selectedPlant === slot.id) {

@@ -10,8 +10,14 @@ export class Game {
         this.canvas = document.getElementById(canvasId);
         this.ctx = this.canvas.getContext('2d');
 
+        // Assets
+        this.assets = {
+            peashooter: new Image()
+        };
+        this.assets.peashooter.src = 'images/PvZ_1_Peashooter.svg';
+
         const UI_HEIGHT = 100;
-        this.ui = new UIManager(this.canvas.width, UI_HEIGHT);
+        this.ui = new UIManager(this.canvas.width, UI_HEIGHT, this.assets);
 
         this.economy = new EconomyManager(50)
 
@@ -21,7 +27,7 @@ export class Game {
         // IMPORTANTE: Le decimos que la rejilla empieza 100px abajo
         this.input = new InputManager(this.canvas, this.grid, 0, UI_HEIGHT);
 
-        this.entities = new EntityManager();
+        this.entities = new EntityManager(this.assets);
         this.entities.gridReference = this.grid; // <--- El puente entre ambos
 
         this.lastTime = 0; // Para calcular el DeltaTime
